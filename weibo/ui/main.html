@@ -1,0 +1,72 @@
+<html>
+	<head>
+		<title>WeiboApp</title>
+		<script type="text/javascript" src="./js/template.js"></script>
+		<script type="text/javascript" src="./js/jquery.js"></script>
+		<style type="text/css">
+		#Menu_Home{
+			cursor: pointer;
+		}
+		.lf{
+			float: left;
+		}
+		.rf{
+			float: right;
+			text-align: left;
+		}
+		.cf{
+			clear: both;
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+		</style>
+		<script type="text/javascript">
+		function Home () {
+			location.href='callback://Home';
+		}
+		function HomeSet (data) {
+			var source = $("#info-template").html();
+			var template = Handlebars.compile(source);
+			$("#body").hide().html('');
+			for(var i = 0;i < data.statuses.length;i++){
+				var html = template(data.statuses[i])
+				$("#body").append(html).show();
+			}
+		}
+		$(function(){
+			$("#Menu_Home").click(Home)
+			Home();
+		});
+		</script>
+		<!-- template -->
+		<script id="info-template" type="text/x-handlebars-template">
+			<div class="msgInfo">
+					<div class="lf" style="width:150px;display:block">
+						<div>
+							<img src="{{user.profile_image_url}}">
+						</div>
+						<div>
+							<span>{{user.screen_name}}</span>
+						</div>
+					</div>
+					<div class="rf" style="width:400px;display:block">
+						{{text}}
+					</div>
+			</div>
+			<div class="cf"><hr></div>
+		</script>
+	</head>
+
+	<body oncontextmenu="return false" >
+		<div id="main">
+			<!-- 菜单 -->
+			<div id="menu">
+				<h3><span id="Menu_Home">Home</span></h3>
+			</div>
+			<!-- 主体内容 -->
+			<div id="body">
+
+			</div>
+		</div>
+	</body>
+</html>
