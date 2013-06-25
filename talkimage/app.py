@@ -73,9 +73,14 @@ class TalkImageApp(gtk.Window):
 			msg = MessageBox()
 			msg.showMsg('前缀，编号和目录不能为空！')
 	def multDirScaner(self,dirname):
-		self.getDirFileList(dirname + '/' + 'big')
-		self.getDirFileList(dirname + '/' + 'mid')
-		self.getDirFileList(dirname + '/' + 'sml')
+
+		#目录结构
+		childDir = os.path.split(dirname)
+		parentDir = os.path.split(childDir[0])
+		
+		self.getDirFileList('%s\\big\\%s'%(parentDir[0],childDir[1]))
+		self.getDirFileList('%s\\small\\%s'%(parentDir[0],childDir[1]))
+		self.getDirFileList('%s\\medium\\%s'%(parentDir[0],childDir[1]))
 		msg = MessageBox()
 		msg.showMsg('图片已经转换完成！')
 	def getDirFileList(self,dirname):
